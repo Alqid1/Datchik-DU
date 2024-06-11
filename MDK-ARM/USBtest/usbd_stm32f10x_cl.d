@@ -1,0 +1,17 @@
+usbtest\usbd_stm32f10x_cl.o: C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.1\RTE_Driver\USBD_STM32F10x_cl.c
+usbtest\usbd_stm32f10x_cl.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+usbtest\usbd_stm32f10x_cl.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+usbtest\usbd_stm32f10x_cl.o: C:\Users\Tupahin_D\Documents\USBtest\MDK-ARM\RTE\RTE_Components.h
+usbtest\usbd_stm32f10x_cl.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Driver\Include\Driver_USBD.h
+usbtest\usbd_stm32f10x_cl.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Driver\Include\Driver_USB.h
+usbtest\usbd_stm32f10x_cl.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Driver\Include\Driver_Common.h
+usbtest\usbd_stm32f10x_cl.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+usbtest\usbd_stm32f10x_cl.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+usbtest\usbd_stm32f10x_cl.o: C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.1\Device\Include\stm32f10x.h
+usbtest\usbd_stm32f10x_cl.o: ../Drivers/CMSIS/Include/core_cm3.h
+usbtest\usbd_stm32f10x_cl.o: ../Drivers/CMSIS/Include/cmsis_version.h
+usbtest\usbd_stm32f10x_cl.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
+usbtest\usbd_stm32f10x_cl.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
+usbtest\usbd_stm32f10x_cl.o: C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.1\Device\Include\system_stm32f10x.h
+usbtest\usbd_stm32f10x_cl.o: C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.1\RTE_Driver\GPIO_STM32F10x.h
+usbtest\usbd_stm32f10x_cl.o: C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.1\RTE_Driver\OTG_STM32F10x_cl.h
