@@ -102,6 +102,7 @@ uint32_t CurSpd;
 uint32_t MovementMode;
 uint32_t LastSpd=0;
 uint32_t LastSpd1=0;
+uint32_t CheckSpd=0;
 
 extern float motorSpeed;
 extern uint8_t GoodFlag;
@@ -242,6 +243,7 @@ int main(void)
 		}
 	if (Mode=='2')
 		{
+			
 		if (CurCycle<=cycle)
 			{
 				if (StopFlag==1 && TopFlag==1)
@@ -275,16 +277,18 @@ int main(void)
 		}
 		if (Mode == '3')
 		{
-			
-				if (spd<=1000)                
+			if (spd!=0){
+				CheckSpd=spd;
+			}
+				if (CheckSpd<=1000)                
 					{
 						time=3;
 					}
-				if (spd>1000 && spd<=2000) 
+				if (CheckSpd>1000 && CheckSpd<=2000) 
 					{
 						time=8;
 					}
-				if (spd>2000)                
+				if (CheckSpd>2000)                
 					{
 						time=15;
 					}
@@ -431,9 +435,9 @@ static void MX_TIM2_Init(void)
 
   /* USER CODE END TIM2_Init 1 */
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 3;
+  htim2.Init.Prescaler = 1;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 53999;
+  htim2.Init.Period = 35999;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
