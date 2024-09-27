@@ -65,7 +65,6 @@ void Error_Handler(void);
 #define Disable_GPIO_Port GPIOA
 #define OUT1_Pin GPIO_PIN_7
 #define OUT1_GPIO_Port GPIOB
-//#define OUT1_EXTI_IRQn EXTI9_5_IRQn
 #define OUT2_Pin GPIO_PIN_6
 #define OUT2_GPIO_Port GPIOB
 #define OUT3_Pin GPIO_PIN_3

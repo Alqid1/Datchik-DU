@@ -45,33 +45,25 @@ uint32_t distance=0;
 extern uint32_t StepTime;
 extern uint32_t LastSpd;
 extern uint8_t dir;
-float spin=0;
 float motorSpeed;
 extern uint8_t MoveFlag;
 extern uint8_t Mode;
-uint32_t Schet=0;
+extern uint32_t Schet;
 extern uint8_t StopFlag;
 extern uint8_t TopFlag;
 extern uint8_t BotFlag;
 extern uint8_t TimFlag;
 extern uint8_t CycleFlag;
 uint8_t GoodFlag=1;
-int BadFlag=1;
 extern uint8_t Tim2Flag;
-uint32_t tim2Arr[10000];
-uint16_t cs=0;
-float abc=0;
-float abcTrue=0;
 extern float SensorSpd;
 
 extern uint16_t massive_avrg_values[4];
 extern uint16_t avrage_sum;
 extern int32_t el_mas[500];
 uint16_t counter_test =0;
-uint8_t validate[200];
 extern uint16_t Avarage_value;
 
-extern int32_t MassiveCounter;
 extern int32_t Counter;
 uint16_t values[2];
 extern uint32_t Timer_TICK;
@@ -79,8 +71,6 @@ extern uint32_t Pulse_Period;
 extern uint32_t OurSpeed;
 float allSpd;
 uint16_t c;
-int sum = 0;
-uint8_t FlagMuhamed=0;
 
 extern uint8_t errorPHASE;
 uint8_t errorDU = 0;
@@ -322,7 +312,6 @@ void TIM2_IRQHandler(void)
 	
 				if (var=='0')
 				{ 
-			
 					//ошибка фазы
 					if ((!state1 && !state2 && !state3 && state4) || (!state1 && state2 && state3 && state4) || (state1 && state2 && state3 && !state4)|| (state1 && !state2 && !state3 && !state4))
 						{
@@ -453,8 +442,7 @@ void TIM3_IRQHandler(void)
 			Tim2Flag = 1; 
 			Pulse_Period=Timer_TICK*8;  //умножаем количество произведенных тиков на время работы таймера
 			Timer_TICK=0;
-		}
-		
+		}	
 		if ((!massive_avrg_values[3] && !massive_avrg_values[2] && !massive_avrg_values[1] && !massive_avrg_values[0]) || (massive_avrg_values[3] && massive_avrg_values[2] && massive_avrg_values[1] && massive_avrg_values[0]))
 		{
 			++cnt;
@@ -462,14 +450,12 @@ void TIM3_IRQHandler(void)
 			{
 				Pulse_Period = 0;
 				cnt = 0;
-			}
-			
+			}		
 		}
 		else 
 		{
 			cnt = 0; 
-		}
-		
+		}	
 		if(CurSpd == 0){
 			Pulse_Period=0;
 		}
@@ -482,15 +468,7 @@ void TIM3_IRQHandler(void)
 				counter_test++;							
 			}
 		}
-//				if((Tim2Flag == 1)&&(massive_avrg_values[3] == 0 && massive_avrg_values[2] == 0 && massive_avrg_values[1]==1 && 	massive_avrg_values[0] == 1)) //...проверка наличиня среза расчет периода и сброс флага
-//				{
-//					Tim2Flag=0; 
-//					//FlagMuhamed=1;
-//					 Pulse_Period=Timer_TICK*8; //умножаем количество произведенных тиков на время работы таймера
-//					Timer_TICK=0;
-//				}
 	}
-
 	/* USER CODE END TIM3_IRQn 0 */
   HAL_TIM_IRQHandler(&htim3);
   /* USER CODE BEGIN TIM3_IRQn 1 */
@@ -618,13 +596,10 @@ void TIM7_IRQHandler(void)
 		{                                        //Получение информации с датчика
      uint8_t RX_Data[3];
     } spi_data;
-	
-		//HAL_GPIO_TogglePin(LedG_GPIO_Port,LedG_Pin);
 		HAL_SPI_Receive(&hspi3,spi_data.RX_Data,sizeof(spi_data.RX_Data),100);
 		lir_angle =((spi_data.RX_Data[0] << 16)|(spi_data.RX_Data[1] << 8)|(spi_data.RX_Data[2] << 0))>>5;
 		lir_angle=lir_angle&0x0001FFFF;		
 		sumCircle+=1;
-		
 if (lastLir_angle!=lir_angle)
 	{
 ///////////////////////////////////

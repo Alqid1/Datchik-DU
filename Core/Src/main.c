@@ -82,13 +82,8 @@ uint32_t len=1;
 char buffer[18];
 
 //Rotate Sensor
-volatile int32_t NumOfTicks=0; 
 uint32_t Timer_TICK = 0;
-//float CurrentTimeTick=0.0;
-int32_t bufferTick=0;
 float SensorSpd = 0.0;
-volatile int32_t Buffer_Rising,Buffer_Falling;
-volatile int32_t Rising_Pulse,Falling_Pulse;
 uint32_t Pulse_Period=0;
 
 //Engine
@@ -106,7 +101,6 @@ uint32_t CheckSpd=0;
 
 extern float motorSpeed;
 extern uint8_t GoodFlag;
-extern int BadFlag;
 float FactSpeed;
 
 uint16_t massive_avrg_values[4]={0,0,0,0};
@@ -114,7 +108,6 @@ uint16_t avrage_sum = 0;
 int32_t el_mas[500];
 uint16_t Avarage_value =0;
 
-int16_t MassiveCounter=0;
 int32_t Counter = 0;
 
 uint8_t errorPHASE=0;
@@ -123,6 +116,10 @@ uint8_t var=0;
 uint32_t OurSpeed=0;
 uint8_t errorInit=1;
 uint8_t ErrorInitFlag=0;
+uint32_t Schet=0;
+uint8_t AccelerationFlag=0;
+uint16_t SaveTime=0;
+uint16_t TimeFlag=0;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -217,10 +214,6 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-//		if(HAL_GPIO_ReadPin(GPIOB, OUT1_Pin) && !ErrorInitFlag)
-//		{
-//			errorInit = ErrorInit();
-//		}
 		if (buffer[0]=='u')
 			{
 				RecieveData_Usb();	
@@ -234,7 +227,7 @@ int main(void)
 			
 //There is no God next. i don't know what the following lines of code do 
 	TimFlag=1;
-	if(BotFlag == 1 && TopFlag==0 && MoveFlag==0 && StopFlag==1 && CycleFlag==1 && Mode=='2'){         
+	if(BotFlag == 1 && TopFlag==0 && MoveFlag==0 && StopFlag==1 && CycleFlag==1 && Mode=='2' && AccelerationFlag==1){         
 			CurCycle++;
 			CycleFlag=0;
 		}
@@ -243,8 +236,32 @@ int main(void)
 		}
 	if (Mode=='2')
 		{
-			
-		if (CurCycle<=cycle)
+			if (AccelerationFlag==0){
+				if (TimeFlag==0){
+				SaveTime=time;
+				spd=maxSpd;
+				TimeFlag=1;
+				}
+				if (maxSpd<=1000)                
+					{
+						time=3;
+					}
+				if (maxSpd>1000 && maxSpd<=2000) 
+					{
+						time=8;
+					}
+				if (maxSpd>2000)                
+					{
+						time=15;
+					}
+				Move();
+					if (CurSpd==spd){
+						AccelerationFlag=1;
+						time=SaveTime;
+					}
+			}
+			else{
+		if (CurCycle<cycle)
 			{
 				if (StopFlag==1 && TopFlag==1)
 					{
@@ -273,10 +290,27 @@ int main(void)
 						time=15;
 					}
 				Move();
+					TopFlag=0;
+					BotFlag=1;
+					MoveFlag=0;
+					StopFlag=1;
+					Schet=0;
+					CycleFlag=1;
+					GoodFlag=1;
 			}
+		}
 		}
 		if (Mode == '3')
 		{
+			TopFlag=0;
+			BotFlag=1;
+			MoveFlag=0;
+			StopFlag=1;
+			Schet=0;
+			CycleFlag=1;
+			GoodFlag=1;
+			AccelerationFlag=0;
+			TimeFlag=0;
 			if (spd!=0){
 				CheckSpd=spd;
 			}
@@ -773,22 +807,21 @@ void Move(void)
 	}
 }
 
-
-
-
-
 void RecieveData_Usb(void)
 {
 	HAL_Delay(200);
 
 	var=buffer[1];
 	Mode=buffer[2];
-	dir =buffer[3];
+	
 	if (Mode=='1')
 		{
 			memcpy((uint8_t *)bufSpd, (uint8_t *)buffer + 4, 4 * sizeof(buffer[4]));
 			memcpy((uint8_t *)bufTime, (uint8_t *)buffer + 8, 2 * sizeof(buffer[4]));
 			spd=2*atoi(&bufSpd[0]);
+			if (spd!=0){
+				dir =buffer[3];
+			}
 			time=atoi(&bufTime[0]);
 			
 			len = MIN_LEN;
@@ -807,6 +840,10 @@ void RecieveData_Usb(void)
 			
 			minSpd=2*atoi(&bufMinSpd[0]);	
 			time=atoi(&bufTime[0]);
+			
+			CurCycle=0;
+			AccelerationFlag=0;
+			TimeFlag=0;
 			
 			len = MIN_LEN;
 			memset(buffer, 0, strlen(buffer));
@@ -842,49 +879,6 @@ void Transmite_EncoderSpeed(void)
 	
 	CDC_Transmit_FS(bufferSpd,12);
 }
-
-//мы должны знать,когда включился датчик и только после этого проверять состояние
-//uint8_t ErrorInit(void)
-//{
-//		bool state1r, state2r, state3r, state4r;
-//		state1r = HAL_GPIO_ReadPin(GPIOB, OUT1_Pin);
-//	  state2r = HAL_GPIO_ReadPin(GPIOB, OUT2_Pin);
-//	  state3r = HAL_GPIO_ReadPin(GPIOA, OUT3_Pin);
-//	  state4r = HAL_GPIO_ReadPin(GPIOA, OUT4_Pin);
-//	//проверять через 5 мс,что состояния все еще 1
-//		if (state1r==1 && state2r==1 && state3r==1 && state4r==1)
-//			{
-//				HAL_Delay(2);
-//				state1r = HAL_GPIO_ReadPin(GPIOB, OUT1_Pin);
-//				state2r = HAL_GPIO_ReadPin(GPIOB, OUT2_Pin);
-//				state3r = HAL_GPIO_ReadPin(GPIOA, OUT3_Pin);
-//				state4r = HAL_GPIO_ReadPin(GPIOA, OUT4_Pin);
-//				if (state1r==1 && state2r==1 && state3r==1 && state4r==1)
-//					{
-//					}
-//					else
-//					{
-//						return 1;
-//					}
-//				HAL_Delay(70);
-//				state1r = HAL_GPIO_ReadPin(GPIOB, OUT1_Pin);
-//				state4r = HAL_GPIO_ReadPin(GPIOA, OUT4_Pin);
-//				if (state1r != state4r)
-//					{
-//						ErrorInitFlag=1;
-//						return 0;
-//					}
-//					else
-//					{
-//						return 1;
-//					}
-//			}
-//			else
-//			{
-//				return 1;
-//			}
-//}
-
 
 /* USER CODE END 4 */
 

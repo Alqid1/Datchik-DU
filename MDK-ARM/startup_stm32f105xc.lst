@@ -555,11 +555,11 @@ ARM Macro Assembler    Page 9
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
 ork --depend=usbtest\startup_stm32f105xc.d -ousbtest\startup_stm32f105xc.o -IC:
-\Users\Tupahin_D\Documents\USBtest23.04\MDK-ARM\RTE -IC:\Keil_v5\ARM\PACK\ARM\C
-MSIS\4.5.0\CMSIS\Include -IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.1\Device\
-Include --predefine="__UVISION_VERSION SETA 517" --predefine="_RTE_ SETA 1" --p
-redefine="STM32F10X_CL SETA 1" --list=startup_stm32f105xc.lst startup_stm32f105
-xc.s
+\Users\Tupahin_D\Documents\Stend_DU\Soft\MDK-ARM\RTE -IC:\Keil_v5\ARM\PACK\ARM\
+CMSIS\4.5.0\CMSIS\Include -IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.1\Device
+\Include --predefine="__UVISION_VERSION SETA 517" --predefine="_RTE_ SETA 1" --
+predefine="STM32F10X_CL SETA 1" --list=startup_stm32f105xc.lst startup_stm32f10
+5xc.s
 
 
 
