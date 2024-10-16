@@ -3,7 +3,7 @@
 <title>Static Call Graph - [USBtest\USBtest.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image USBtest\USBtest.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060061: Last Updated: Thu Sep 12 13:11:30 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060061: Last Updated: Wed Oct 16 13:01:49 2024
 <BR><P>
 <H3>Maximum Stack Usage =        248 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1197,7 +1197,7 @@ Global Symbols
 <P><STRONG><a name="[21]"></a>PendSV_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f1xx_it.o(i.PendSV_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f105xc.o(RESET)
 </UL>
-<P><STRONG><a name="[103]"></a>RecieveData_Usb</STRONG> (Thumb, 176 bytes, Stack size 24 bytes, main.o(i.RecieveData_Usb))
+<P><STRONG><a name="[103]"></a>RecieveData_Usb</STRONG> (Thumb, 180 bytes, Stack size 24 bytes, main.o(i.RecieveData_Usb))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = RecieveData_Usb &rArr; atoi &rArr; strtol &rArr; _strtoul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
@@ -1237,7 +1237,7 @@ Global Symbols
 <P><STRONG><a name="[5e]"></a>SystemInit</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, system_stm32f1xx.o(i.SystemInit))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f105xc.o(.text)
 </UL>
-<P><STRONG><a name="[3f]"></a>TIM2_IRQHandler</STRONG> (Thumb, 510 bytes, Stack size 32 bytes, stm32f1xx_it.o(i.TIM2_IRQHandler))
+<P><STRONG><a name="[3f]"></a>TIM2_IRQHandler</STRONG> (Thumb, 652 bytes, Stack size 32 bytes, stm32f1xx_it.o(i.TIM2_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = TIM2_IRQHandler &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_TIM_IRQHandler

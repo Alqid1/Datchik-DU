@@ -853,6 +853,12 @@ void RecieveData_Usb(void)
 			len = MIN_LEN;
 			memset(buffer, 0, strlen(buffer));
 		}
+		else if (Mode=='4')
+		{
+			len = MIN_LEN;
+			memset(buffer, 0, strlen(buffer));
+		}
+			
 }
 
 // Transmite USB 

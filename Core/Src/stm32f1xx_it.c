@@ -283,6 +283,10 @@ void TIM2_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM2_IRQn 0 */
 	//ошибка иницализации
+	if (Mode == '4')
+		{
+	if (var=='0')
+				{ 
 					state1 = HAL_GPIO_ReadPin(GPIOB, OUT1_Pin);
 					state4 = HAL_GPIO_ReadPin(GPIOA, OUT4_Pin);
 					state2 = HAL_GPIO_ReadPin(GPIOB, OUT2_Pin);
@@ -309,6 +313,36 @@ void TIM2_IRQHandler(void)
 							}
 						}
 					}
+				}
+				if (var=='1')
+				{
+					state1 = HAL_GPIO_ReadPin(GPIOB, OUT1_Pin);
+					state4 = HAL_GPIO_ReadPin(GPIOA, OUT4_Pin);
+					state3 = HAL_GPIO_ReadPin(GPIOA, OUT3_Pin);
+					if(errorInit==1){
+					if (state1==1 && state3==1 && state4==1)
+					{
+						InitDelay2++;
+					}else{
+						InitDelay2=0;
+					}
+					if (InitDelay2==3){
+						FlagInitDelay70=1;
+					}
+						if (FlagInitDelay70==1){
+							InitDelay70++;
+						}
+						if (InitDelay70==23){
+							FlagInitDelay70=0;
+							InitDelay70=0;
+							if (state1 != state4)
+							{
+								errorInit=0;
+							}
+						}
+					}
+				}
+			}
 	
 				if (var=='0')
 				{ 
